@@ -26,7 +26,7 @@ export default function PostList() {
     }, []);
 
     return (
-        <section className="flex w-full max-w-[500px] flex-col rounded-sm bg-gray-900 p-5">
+        <section className="mt-5 flex w-full max-w-[500px] flex-col rounded-sm bg-gray-900 p-5">
             {posts.map((post) => (
                 <Post key={post.id} {...post} />
             ))}
