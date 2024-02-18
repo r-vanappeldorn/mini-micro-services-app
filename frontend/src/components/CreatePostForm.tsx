@@ -18,7 +18,7 @@ export default function CreatePostForm() {
                 "http://localhost:4000/posts",
                 {
                     title,
-                }
+                },
             );
             setTitle("");
             setPosts([...posts, newPost]);
@@ -28,14 +28,14 @@ export default function CreatePostForm() {
     };
 
     return (
-        <section className="p-8 max-w-[350px] shadow bg-gray-900 flex flex-col rounded-sm">
-            <h2 className="font-bold text-xl text-gray-100 mb-5">
+        <section className="flex max-w-[350px] flex-col rounded-sm bg-gray-900 p-8 shadow">
+            <h2 className="mb-5 text-xl font-bold text-gray-100">
                 Create <span className="text-purple-300">post</span>
             </h2>
             <form onSubmit={createPost}>
                 <label
                     htmlFor="create-post"
-                    className="block text-gray-400 mb-2"
+                    className="mb-2 block text-gray-400"
                 >
                     Title:
                 </label>
@@ -44,11 +44,11 @@ export default function CreatePostForm() {
                     id="create-post"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="shadow bg-[rgb(12,17,28)] appearance-none border-2 border-gray-700 rounded-sm w-full py-2 px-3 leading-tight focus:outline-none focus:border-gray-600 text-gray-200 mb-5"
+                    className="mb-5 w-full appearance-none rounded-sm border-2 border-gray-700 bg-[rgb(12,17,28)] px-3 py-2 leading-tight text-gray-200 shadow focus:border-gray-600 focus:outline-none"
                 />
                 <button
                     type="submit"
-                    className="py-2 px-3 w-full bg-purple-600 text-sm font-medium shadow transition ease-in-out duration-200 rounded-sm text-gray-200 hover:bg-purple-700 "
+                    className="w-full rounded-sm bg-purple-600 px-3 py-2 text-sm font-medium text-gray-200 shadow transition duration-200 ease-in-out hover:bg-purple-700 "
                 >
                     Create post
                 </button>
