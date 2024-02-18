@@ -48,7 +48,7 @@ export default function CreatePostForm() {
                 />
                 <button
                     type="submit"
-                    className="py-2 px-3 bg-gradient-to-r from-[#058EAF] to-[#22BCB0] text-sm  rounded-sm text-gray-200 "
+                    className="py-2 px-3 w-full bg-purple-600 text-sm font-medium shadow transition ease-in-out duration-200 rounded-sm text-gray-200 hover:bg-purple-700 "
                 >
                     Create post
                 </button>
