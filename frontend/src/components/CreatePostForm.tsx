@@ -28,7 +28,7 @@ export default function CreatePostForm() {
     };
 
     return (
-        <section className="flex max-w-[350px] flex-col rounded-sm bg-gray-900 p-8 shadow">
+        <section className="flex w-full max-w-[500px] flex-col rounded-sm bg-gray-900 p-5 shadow">
             <h2 className="mb-5 text-xl font-bold text-gray-100">
                 Create <span className="text-purple-300">post</span>
             </h2>
