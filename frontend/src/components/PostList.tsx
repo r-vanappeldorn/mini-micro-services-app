@@ -14,7 +14,7 @@ export default function PostList() {
         async function getPosts() {
             try {
                 const { data: fetchedPosts } = await axios.get<Posts>(
-                    "http://localhost:4000/posts"
+                    "http://localhost:4000/posts",
                 );
                 setPosts(fetchedPosts);
             } catch (err) {
@@ -26,7 +26,7 @@ export default function PostList() {
     }, []);
 
     return (
-        <section className="mx-10 bg-gray-900 w-full rounded-sm">
+        <section className="mx-10 w-full rounded-sm bg-gray-900">
             {posts.map((post) => (
                 <Post key={post.id} {...post} />
             ))}
