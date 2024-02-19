@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import CommentIcon from "@/icons/CommentIcon";
 import { Post } from "@/types/posts";
+import { CreateCommentForm } from "./CreateCommentForm";
 
 export default function Post({ id, title }: Post) {
     const [showComments, setShowComments] = useState(false);
@@ -17,7 +18,10 @@ export default function Post({ id, title }: Post) {
             <div
                 className={`grid ${showComments ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} transition-grid-rows mb-1`}
             >
-                <p className="overflow-hidden text-sm text-gray-400">comment</p>
+                <div className="overflow-hidden">
+                    <p className=" text-sm text-gray-400">comment</p>
+                    <CreateCommentForm />
+                </div>
             </div>
             <button
                 className="mb-2 flex"
