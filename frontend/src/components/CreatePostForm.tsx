@@ -5,6 +5,7 @@ import { FormEvent, useContext, useState } from "react";
 import { PostContext } from "@/contexts/posts-context";
 import { Post } from "@/types/posts";
 import axios from "axios";
+import Input from "./Input";
 
 export default function CreatePostForm() {
     const [title, setTitle] = useState("");
@@ -33,15 +34,11 @@ export default function CreatePostForm() {
                 Create <span className="text-purple-300">post</span>
             </h2>
             <form onSubmit={createPost}>
-                <label htmlFor="create-post" className="text-sm text-gray-400">
-                    Title:
-                </label>
-                <input
-                    type="text"
+                <Input
+                    label="Title:"
                     id="create-post"
+                    setValue={setTitle}
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="mb-4 w-full appearance-none rounded-sm border-2 border-gray-700 bg-[rgb(12,17,28)] px-3 py-2 leading-tight text-gray-200 shadow focus:border-gray-600 focus:outline-none"
                 />
                 <button
                     type="submit"
