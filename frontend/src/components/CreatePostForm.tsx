@@ -33,7 +33,7 @@ export default function CreatePostForm() {
                 Create <span className="text-purple-300">post</span>
             </h2>
             <form onSubmit={createPost}>
-                <label htmlFor="create-post" className="block text-gray-400">
+                <label htmlFor="create-post" className="text-sm text-gray-400">
                     Title:
                 </label>
                 <input
