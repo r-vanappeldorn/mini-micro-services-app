@@ -1,16 +1,9 @@
-type CommentIconProps = {
-    height?: number;
-    width?: number;
-    className?: string;
-};
+import { IconProps } from "@/types/icon";
+
 /**
  * Use tailwind classNames to change fill of component.
  */
-export default function CommentIcon({
-    height,
-    width,
-    className,
-}: CommentIconProps) {
+export default function CommentIcon({ height, width, className }: IconProps) {
     return (
         <svg
             width={width ? `${width}px` : "20px"}
