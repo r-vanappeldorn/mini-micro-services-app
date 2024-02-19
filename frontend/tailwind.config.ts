@@ -12,16 +12,31 @@ const config: Config = {
                 fadeOutSlideDown: {
                     "0%": {
                         opacity: "100%",
-                        bottom: "0",
                     },
                     "100%": {
                         opacity: "0%",
-                        transform: "translateY(50%)",
+                        transform: "translateY(25%)",
+                    },
+                },
+
+                fadeInSlideUp: {
+                    "0%": {
+                        opacity: "0%",
+                        transform: "translateY(25%)",
+                    },
+                    "100%": {
+                        opacity: "100%",
+                        transform: "translateY(0%)",
                     },
                 },
             },
+            transitionProperty: {
+                "max-height": "max-height",
+                "grid-rows": "grid-template-rows",
+            },
             animation: {
                 "fade-out": "fadeOutSlideDown 0.5s ease-in-out forwards",
+                "fade-in": "fadeInSlideUp 0.5s ease-in-out forwards",
             },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
