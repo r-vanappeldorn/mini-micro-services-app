@@ -1,10 +1,7 @@
-import { CSSProperties } from "react";
-
 type CommentIconProps = {
     height?: number;
     width?: number;
     className?: string;
-    onClick?: () => void;
 };
 /**
  * Use tailwind classNames to change fill of component.
@@ -13,11 +10,9 @@ export default function CommentIcon({
     height,
     width,
     className,
-    onClick,
 }: CommentIconProps) {
     return (
         <svg
-            onClick={onClick}
             width={width ? `${width}px` : "20px"}
             height={height ? `${height}px` : "20px"}
             viewBox="0 0 32 32"
