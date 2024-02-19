@@ -1,35 +1,55 @@
 "use client";
 
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 
 import { Posts } from "@/types/posts";
 import { PostContext } from "@/contexts/posts-context";
 import Post from "./Post";
-import { useContext, useEffect } from "react";
+import Loader from "./Loader";
 
 export default function PostList() {
     const { posts, setPosts } = useContext(PostContext);
+    const [isLoading, setIsLoading] = useState(true);
+    const [showLoader, setShowLoader] = useState(true);
+
+    // Hide loader when animation is finished.
+    const fadeOutLoader = () => {
+        setTimeout(() => {
+            setShowLoader(false);
+        }, 500);
+    };
 
     useEffect(() => {
-        async function getPosts() {
-            try {
-                const { data: fetchedPosts } = await axios.get<Posts>(
-                    "http://localhost:4000/posts",
-                );
-                setPosts(fetchedPosts);
-            } catch (err) {
-                throw console.error(err);
-            }
-        }
-
-        getPosts();
+        axios
+            .get<Posts>("http://localhost:4000/posts")
+            .then(({ data }) => {
+                setPosts(data);
+                setIsLoading(false);
+                fadeOutLoader();
+            })
+            .catch((err) => console.error(err));
     }, []);
 
+    const renderContent = () => {
+        if (showLoader) {
+            return (
+                <Loader
+                    // Add animate-fade-out className when posts are set.
+                    className={!isLoading ? "animate-fade-out" : undefined}
+                    message="Loading posts..."
+                />
+            );
+        }
+
+        return posts.map((post) => <Post key={post.id} {...post} />);
+    };
+
     return (
-        <section className="mt-5 flex w-full max-w-[500px] flex-col rounded-sm bg-gray-900 p-5">
-            {posts.map((post) => (
-                <Post key={post.id} {...post} />
-            ))}
+        <section
+            className={`transition-max-height mt-5 grid w-full ${showLoader ? "max-h-[130px]" : "max-h-[2000px]"} max-w-[500px] grid-rows-[1fr] overflow-hidden rounded-sm bg-gray-900 p-5 duration-[1500ms] ease-in-out`}
+        >
+            {renderContent()}
         </section>
     );
 }
