@@ -9,18 +9,27 @@ export default function Post({ id, title }: Post) {
     const [showComments, setShowComments] = useState(false);
 
     return (
-        <div id={id} className="mb-2 flex flex-col border-b border-gray-700">
-            <h3 className="mb-2 text-lg text-gray-200">{title}</h3>
-            <div className={showComments ? undefined : "hidden"}>comment</div>
-            <div className="mb-2 flex">
+        <div
+            id={id}
+            className="animate-fade-in mb-2 flex cursor-pointer flex-col border-b border-gray-700"
+        >
+            <h3 className="text-lg text-gray-200">{title}</h3>
+            <div
+                className={`grid ${showComments ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} transition-grid-rows mb-1`}
+            >
+                <p className="overflow-hidden text-sm text-gray-400">comment</p>
+            </div>
+            <button
+                className="mb-2 flex"
+                onClick={() => setShowComments(!showComments)}
+            >
                 <CommentIcon
-                    onClick={() => setShowComments(!showComments)}
                     height={15}
                     width={16}
                     className=" fill-gray-400"
                 />
                 <span className="ml-1 text-[11px] text-gray-400">2</span>
-            </div>
+            </button>
         </div>
     );
 }
