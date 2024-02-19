@@ -28,15 +28,12 @@ export default function CreatePostForm() {
     };
 
     return (
-        <section className="flex max-w-[350px] flex-col rounded-sm bg-gray-900 p-8 shadow">
-            <h2 className="mb-5 text-xl font-bold text-gray-100">
+        <section className="mt-5 flex w-full max-w-[500px] flex-col rounded-sm bg-gray-900 p-5 shadow">
+            <h2 className="mb-2 text-xl font-bold text-gray-100">
                 Create <span className="text-purple-300">post</span>
             </h2>
             <form onSubmit={createPost}>
-                <label
-                    htmlFor="create-post"
-                    className="mb-2 block text-gray-400"
-                >
+                <label htmlFor="create-post" className="text-sm text-gray-400">
                     Title:
                 </label>
                 <input
@@ -44,7 +41,7 @@ export default function CreatePostForm() {
                     id="create-post"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="mb-5 w-full appearance-none rounded-sm border-2 border-gray-700 bg-[rgb(12,17,28)] px-3 py-2 leading-tight text-gray-200 shadow focus:border-gray-600 focus:outline-none"
+                    className="mb-4 w-full appearance-none rounded-sm border-2 border-gray-700 bg-[rgb(12,17,28)] px-3 py-2 leading-tight text-gray-200 shadow focus:border-gray-600 focus:outline-none"
                 />
                 <button
                     type="submit"
