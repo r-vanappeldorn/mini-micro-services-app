@@ -42,12 +42,21 @@ export default function PostList() {
             );
         }
 
+        // Return a empty posts if there are no posts in array.
+        if (posts.length === 0) {
+            return (
+                <h2 className="animate-fade-in self-center text-center text-gray-200">
+                    No posts created.
+                </h2>
+            );
+        }
+
         return posts.map((post) => <Post key={post.id} {...post} />);
     };
 
     return (
         <section
-            className={`transition-max-height mt-5 grid w-full ${showLoader ? "max-h-[130px]" : "max-h-[2000px]"} max-w-[500px] grid-rows-[1fr] overflow-hidden rounded-sm bg-gray-900 p-5 duration-[1500ms] ease-in-out`}
+            className={`transition-max-height mt-5 grid min-h-[110px] w-full ${showLoader ? "max-h-[130px]" : "max-h-[2000px]"} max-w-[500px] grid-rows-[1fr] overflow-hidden rounded-sm bg-gray-900 p-5 duration-[1500ms] ease-in-out`}
         >
             {renderContent()}
         </section>

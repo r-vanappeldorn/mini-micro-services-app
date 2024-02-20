@@ -1,16 +1,9 @@
-type CommentIconProps = {
-    height?: number;
-    width?: number;
-    className?: string;
-};
+import { IconProps } from "@/types/icon";
+
 /**
  * Use tailwind classNames to change fill of component.
  */
-export default function CommentIcon({
-    height,
-    width,
-    className,
-}: CommentIconProps) {
+export default function CommentIcon({ height, width, className }: IconProps) {
     return (
         <svg
             width={width ? `${width}px` : "20px"}
@@ -26,9 +19,9 @@ export default function CommentIcon({
             <g
                 id="Page-1"
                 stroke="none"
-                stroke-width="1"
+                strokeWidth="1"
                 fill="none"
-                fill-rule="evenodd"
+                fillRule="evenodd"
             >
                 <g
                     id="Icon-Set"
