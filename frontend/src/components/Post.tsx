@@ -13,18 +13,12 @@ export default function Post({ id, title }: Post) {
     const [commentsList, setCommentsList] = useState<Comments>([]);
 
     useEffect(() => {
-        const getCommentList = async () => {
-            try {
-                const { data: fetchedCommentsList } = await axios.get(
-                    `http://localhost:4001/posts/${id}/comments`,
-                );
+        axios
+            .get(`http://localhost:4001/posts/${id}/comments`)
+            .then(({ data: fetchedCommentsList }) => {
                 setCommentsList(fetchedCommentsList);
-            } catch (err) {
-                throw console.error(err);
-            }
-        };
-
-        getCommentList();
+            })
+            .catch((err) => console.error(err));
     }, []);
 
     return (

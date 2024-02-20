@@ -18,21 +18,17 @@ export function CreateCommentForm({
 
     const createComment = async (e: FormEvent) => {
         e.preventDefault();
-        try {
-            const { data: newCommentsList } = await axios.post<Comments>(
-                `http://localhost:4001/posts/${postId}/comments`,
-                {
-                    id: postId,
-                    content: comment,
-                },
-            );
-
-            // Set comments list to new list and clear input.
-            setCommentsList(newCommentsList);
-            setComment("");
-        } catch (err) {
-            throw console.error(err);
-        }
+        axios
+            .post<Comments>(`http://localhost:4001/posts/${postId}/comments`, {
+                id: postId,
+                content: comment,
+            })
+            .then(({ data: newCommentsList }) => {
+                // Set comments list to new list and clear input.
+                setCommentsList(newCommentsList);
+                setComment("");
+            })
+            .catch((err) => console.error(err));
     };
 
     return (
