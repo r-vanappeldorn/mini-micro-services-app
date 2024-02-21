@@ -1,10 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { EventReq } from "./types";
 
 const app = express();
 app.use(bodyParser.json());
 
-app.post("/events", (req, res) => {
+app.post("/events", (req: EventReq, res) => {
     const event = req.body;
     console.log("Received event: ", req.body.type);
     console.table(req.body);
