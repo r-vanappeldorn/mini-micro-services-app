@@ -18,12 +18,12 @@ app.get("/posts/:id/comments", (req, res) => {
     res.send(comments);
 });
 
-app.post("/posts/:id/comments", (req, res) => {
+app.post("/posts/:postId/comments", (req, res) => {
     // Create fake id. Would not use this method in a real project.
     const commentId = randomBytes(4).toString("hex");
 
     const { content } = req.body;
-    const { id: postId } = req.params;
+    const { postId } = req.params;
 
     // Find commentsByPosts or create empty array to push comment to.
     const comments = commentsByPosts[postId] || [];
