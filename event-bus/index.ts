@@ -6,19 +6,26 @@ app.use(bodyParser.json());
 
 app.post("/events", (req, res) => {
     const event = req.body;
+    console.log("Received event: ", req.body.type);
+    console.table(req.body);
 
+    // Post service.
     fetch("http://localhost:4000/events", {
-        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        method: "post",
         body: JSON.stringify(event),
     });
+    // Comments service.
     fetch("http://localhost:4001/events", {
-        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        method: "post",
         body: JSON.stringify(event),
     });
-    fetch("http://localhost:4002/events", {
-        method: "POST",
-        body: JSON.stringify(event),
-    });
+    // Query service.
+    // fetch("http://localhost:4002/events", {
+    //     method: "POST",
+    //     body: JSON.stringify(event),
+    // });
 
     res.send({ status: "OK" });
 });
