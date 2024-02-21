@@ -3,7 +3,7 @@ import { randomBytes } from "crypto";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-import { CreatePostReq, Posts } from "./types";
+import { CreatePostReq, EventReq, Posts } from "./types";
 
 const app = express();
 app.use(bodyParser.json());
@@ -39,6 +39,12 @@ app.post("/posts", (req: CreatePostReq, res) => {
     });
 
     console.log("post created");
+});
+
+app.post("/events", (req: EventReq, res) => {
+    console.log("post event: ", req.body);
+
+    res.status(200);
 });
 
 app.listen(4000, () => {

@@ -3,7 +3,7 @@ import { randomBytes } from "crypto";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-import { CommentsByPosts } from "./types";
+import { CommentsByPosts, EventReq } from "./types";
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,6 +43,12 @@ app.post("/posts/:postId/comments", (req, res) => {
     });
 
     res.status(201).send(comments);
+});
+
+app.post("/events", (req: EventReq, res) => {
+    console.log("comments event: ", req.body);
+
+    res.status(200);
 });
 
 app.listen(4001, () => {
