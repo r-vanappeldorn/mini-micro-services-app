@@ -23,10 +23,11 @@ app.post("/events", (req: EventReq, res) => {
         body: JSON.stringify(event),
     });
     // Query service.
-    // fetch("http://localhost:4002/events", {
-    //     method: "POST",
-    //     body: JSON.stringify(event),
-    // });
+    fetch("http://localhost:4002/events", {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify(event),
+    });
 
     res.send({ status: "OK" });
 });
