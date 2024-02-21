@@ -31,7 +31,8 @@ app.post("/posts", (req: CreatePostReq, res) => {
 
     // Emit postCreated event to event bus.
     fetch("http://localhost:4005/events", {
-        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        method: "post",
         body: JSON.stringify({
             type: "postCreated",
             data: newPost,

@@ -35,7 +35,8 @@ app.post("/posts/:postId/comments", (req, res) => {
 
     // Emit commentCreated event to event bus.
     fetch("http://localhost:4005/events", {
-        method: "POST",
+        method: "post",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             type: "commentCreated",
             data: { ...newComment, postId },
