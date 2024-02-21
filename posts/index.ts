@@ -12,26 +12,34 @@ app.use(cors());
 const posts: Posts = {};
 
 app.get("/posts", (req, res) => {
-  res.send(Object.values(posts));
+    res.send(Object.values(posts));
 });
 
 app.post("/posts", (req: CreatePostReq, res) => {
-  // Create fake id. Would not use this method in a real project.
-  const id = randomBytes(4).toString("hex");
-  const { title } = req.body;
+    // Create fake id. Would not use this method in a real project.
+    const id = randomBytes(4).toString("hex");
+    const { title } = req.body;
 
-  const newPost = {
-    id,
-    title,
-  };
+    const newPost = {
+        id,
+        title,
+    };
 
-  // Create new entry in posts object.
-  posts[id] = newPost;
-  res.status(201).send(newPost);
+    // Create new entry in posts object.
+    posts[id] = newPost;
+    res.status(201).send(newPost);
 
-  console.log("post created");
+    fetch("http://localhost:4005/events", {
+        method: "POST",
+        body: JSON.stringify({
+            type: "postCreated",
+            data: newPost,
+        }),
+    });
+
+    console.log("post created");
 });
 
 app.listen(4000, () => {
-  console.log("Listening on port 4000");
+    console.log("Listening on port 4000");
 });
