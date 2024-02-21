@@ -29,6 +29,7 @@ app.post("/posts", (req: CreatePostReq, res) => {
     posts[id] = newPost;
     res.status(201).send(newPost);
 
+    // Emit postCreated event to event bus.
     fetch("http://localhost:4005/events", {
         method: "POST",
         body: JSON.stringify({
