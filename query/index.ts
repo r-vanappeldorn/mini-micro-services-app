@@ -1,13 +1,13 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { EventReq } from "./types";
+import { EventReq, Posts } from "./types";
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const posts = {};
+const posts: Posts = {};
 
 app.get("/posts", (req, res) => {
     res.send(posts);
@@ -45,7 +45,7 @@ app.post("/events", (req: EventReq, res) => {
             break;
     }
 
-    res.send(200);
+    res.sendStatus(200);
 });
 
 app.listen(4002, () => {
