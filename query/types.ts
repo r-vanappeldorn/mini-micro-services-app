@@ -13,3 +13,14 @@ export interface Event {
     data: unknown;
     type: string;
 }
+
+export interface Posts {
+    [key: string]: {
+        id: string;
+        title: string;
+        comments: {
+            id: string;
+            content: string;
+        }[];
+    };
+}
