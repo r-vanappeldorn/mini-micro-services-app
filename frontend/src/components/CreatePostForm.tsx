@@ -14,18 +14,18 @@ export default function CreatePostForm() {
     const createPost = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        try {
-            const { data: newPost } = await axios.post<Post>(
-                "http://localhost:4000/posts",
-                {
-                    title,
-                },
-            );
-            setTitle("");
-            setPosts([...posts, newPost]);
-        } catch (err) {
-            console.error(err);
-        }
+        axios
+            .post<{
+                title: string;
+                id: string;
+            }>("http://localhost:4000/posts", {
+                title,
+            })
+            .then(({ data: newPost }) => {
+                setTitle("");
+                setPosts([...posts, { ...newPost, comments: [] }]);
+            })
+            .catch((err) => console.error(err));
     };
 
     return (
