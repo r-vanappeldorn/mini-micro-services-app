@@ -91,6 +91,8 @@ const updateComment = ({ id, status, postId, content }: CommentWithPostId) => {
         status,
         content,
     };
+
+    console.log(commentsByPosts);
 };
 
 app.post("/events", (req: EventReq, res) => {
