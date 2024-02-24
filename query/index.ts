@@ -10,7 +10,7 @@ app.use(cors());
 const posts: Posts = {};
 
 app.get("/posts", (req, res) => {
-    res.send(posts);
+    res.send(Object.values(posts));
 });
 
 const handlePostCreated = (newPostEventData: { id: string; title: string }) => {
