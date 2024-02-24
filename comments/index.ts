@@ -3,7 +3,12 @@ import { randomBytes } from "crypto";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-import { CommentsByPosts, EventReq } from "./types";
+import {
+    CommentStatuses,
+    CommentsByPosts,
+    EventReq,
+    ReviewComment,
+} from "./types";
 
 const app = express();
 app.use(bodyParser.json());
@@ -11,10 +16,10 @@ app.use(cors());
 
 const commentsByPosts: CommentsByPosts = {};
 
-app.get("/posts/:id/comments", (req, res) => {
-    const { id } = req.params;
+app.get("/posts/:postId/comments", (req, res) => {
+    const { postId } = req.params;
 
-    const comments = commentsByPosts[id] || [];
+    const comments = commentsByPosts[postId] || [];
     res.send(comments);
 });
 
@@ -27,7 +32,11 @@ app.post("/posts/:postId/comments", (req, res) => {
 
     // Find commentsByPosts or create empty array to push comment to.
     const comments = commentsByPosts[postId] || [];
-    const newComment = { id: commentId, content };
+    const newComment = {
+        id: commentId,
+        content,
+        status: CommentStatuses.PENDING,
+    };
     comments.push(newComment);
 
     // Overwrite old comments.
@@ -46,8 +55,38 @@ app.post("/posts/:postId/comments", (req, res) => {
     res.status(201).send(comments);
 });
 
+const reviewComment = (data: ReviewComment) => {
+    const forbiddenWords = ["test", "test2"];
+    const contentWords = data.content.split(" ");
+
+    let updatedStatus = CommentStatuses.APPROVED;
+
+    // Set status to rejected if content contains a forbidden word.
+    forbiddenWords.forEach((word) => {
+        if (contentWords.includes(word))
+            updatedStatus = CommentStatuses.REJECTED;
+    });
+
+    // Set a time out of 10 seconds to fake latency and send commentUpdated event.
+    setTimeout(() => {
+        fetch("http://localhost:4005/events", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type: "commentUpdated",
+                data: { ...data, status: updatedStatus },
+            }),
+        });
+    }, 10000);
+};
+
 app.post("/events", (req: EventReq, res) => {
-    console.log("comments event: ", req.body);
+    const { data, type } = req.body;
+    switch (type) {
+        case "commentCreated":
+            reviewComment(data);
+            break;
+    }
 
     res.status(200);
 });
