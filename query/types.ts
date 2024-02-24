@@ -21,6 +21,7 @@ export interface Posts {
         comments: {
             id: string;
             content: string;
+            status: "approved" | "rejected" | "pending";
         }[];
     };
 }

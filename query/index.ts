@@ -24,12 +24,13 @@ const handleCommentCreated = (newCommentEventData: {
     id: string;
     content: string;
     postId: string;
+    status: "approved" | "rejected" | "pending";
 }) => {
-    const { postId, id, content } = newCommentEventData;
+    const { postId, id, content, status } = newCommentEventData;
 
     // Find post and add new comment to comments array.
     const post = posts[postId];
-    post.comments.push({ id, content });
+    post.comments.push({ id, content, status });
 };
 
 app.post("/events", (req: EventReq, res) => {
