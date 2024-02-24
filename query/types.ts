@@ -31,3 +31,12 @@ export interface Comment {
 export interface CommentWithPostId extends Comment {
     postId: string;
 }
+
+export type NewPostEvent = { id: string; title: string };
+
+export type NewCommentCreatedEvent = {
+    id: string;
+    content: string;
+    postId: string;
+    status: "approved" | "rejected" | "pending";
+};
