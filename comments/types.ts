@@ -2,11 +2,24 @@ import { Request } from "express";
 
 export type EventReq = Request<Event>;
 
+export enum CommentStatuses {
+    "PENDING" = "pending",
+    "APPROVED" = "approved",
+    "REJECTED" = "rejected",
+}
+
 export interface CommentsByPosts {
-    [key: string]: {
-        id: string;
-        content: string;
-    }[];
+    [postId: string]: Comment[];
+}
+
+export interface Comment {
+    id: string;
+    content: string;
+    status: CommentStatuses;
+}
+
+export interface CommentWithPostId extends Comment {
+    postId: string;
 }
 
 export interface Event {

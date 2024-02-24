@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { EventReq, Posts } from "./types";
+import { CommentWithPostId, EventReq, Posts } from "./types";
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,12 +24,28 @@ const handleCommentCreated = (newCommentEventData: {
     id: string;
     content: string;
     postId: string;
+    status: "approved" | "rejected" | "pending";
 }) => {
-    const { postId, id, content } = newCommentEventData;
+    const { postId, id, content, status } = newCommentEventData;
 
     // Find post and add new comment to comments array.
     const post = posts[postId];
-    post.comments.push({ id, content });
+    post.comments.push({ id, content, status });
+};
+
+const handleCommentUpdated = ({
+    postId,
+    id,
+    content,
+    status,
+}: CommentWithPostId) => {
+    // Find index of comment.
+    const commentIndex = posts[postId].comments.findIndex(
+        (comment) => comment.id === id
+    );
+
+    // Update comment props.
+    posts[postId].comments[commentIndex] = { id, content, status };
 };
 
 app.post("/events", (req: EventReq, res) => {
@@ -42,6 +58,9 @@ app.post("/events", (req: EventReq, res) => {
 
         case "commentCreated":
             handleCommentCreated(data);
+            break;
+        case "commentUpdated":
+            handleCommentUpdated(data);
             break;
     }
 

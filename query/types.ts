@@ -18,9 +18,16 @@ export interface Posts {
     [key: string]: {
         id: string;
         title: string;
-        comments: {
-            id: string;
-            content: string;
-        }[];
+        comments: Comment[];
     };
+}
+
+export interface Comment {
+    id: string;
+    content: string;
+    status: "approved" | "rejected" | "pending";
+}
+
+export interface CommentWithPostId extends Comment {
+    postId: string;
 }
