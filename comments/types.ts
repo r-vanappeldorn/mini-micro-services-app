@@ -18,7 +18,7 @@ export interface Comment {
     status: CommentStatuses;
 }
 
-export interface ReviewComment extends Comment {
+export interface CommentWithPostId extends Comment {
     postId: string;
 }
 

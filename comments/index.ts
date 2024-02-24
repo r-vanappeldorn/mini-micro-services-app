@@ -7,7 +7,7 @@ import {
     CommentStatuses,
     CommentsByPosts,
     EventReq,
-    ReviewComment,
+    CommentWithPostId,
 } from "./types";
 
 const app = express();
@@ -55,7 +55,7 @@ app.post("/posts/:postId/comments", (req, res) => {
     res.status(201).send(comments);
 });
 
-const reviewComment = (data: ReviewComment) => {
+const reviewComment = (data: CommentWithPostId) => {
     const forbiddenWords = ["test", "test2"];
     const contentWords = data.content.split(" ");
 
@@ -80,11 +80,27 @@ const reviewComment = (data: ReviewComment) => {
     }, 10000);
 };
 
+const updateComment = ({ id, status, postId, content }: CommentWithPostId) => {
+    // Find index of updated comment by id.
+    const indexOfComment = commentsByPosts[postId].findIndex(
+        (comment) => comment.id === id
+    );
+
+    commentsByPosts[postId][indexOfComment] = {
+        id,
+        status,
+        content,
+    };
+};
+
 app.post("/events", (req: EventReq, res) => {
     const { data, type } = req.body;
     switch (type) {
         case "commentCreated":
             reviewComment(data);
+            break;
+        case "commentUpdated":
+            updateComment(data);
             break;
     }
 
