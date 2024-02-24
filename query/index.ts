@@ -1,7 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { CommentWithPostId, EventReq, Posts } from "./types";
+import {
+    CommentWithPostId,
+    EventReq,
+    NewCommentCreatedEvent as NewCommentEvent,
+    NewPostEvent,
+    Event,
+    Posts,
+} from "./types";
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,19 +20,14 @@ app.get("/posts", (req, res) => {
     res.send(Object.values(posts));
 });
 
-const handlePostCreated = (newPostEventData: { id: string; title: string }) => {
+const handlePostCreated = (newPostEventData: NewPostEvent) => {
     const { id, title } = newPostEventData;
 
     // Add new post to posts object and add empty array of comments to post.
     posts[id] = { id, title, comments: [] };
 };
 
-const handleCommentCreated = (newCommentEventData: {
-    id: string;
-    content: string;
-    postId: string;
-    status: "approved" | "rejected" | "pending";
-}) => {
+const handleCommentCreated = (newCommentEventData: NewCommentEvent) => {
     const { postId, id, content, status } = newCommentEventData;
 
     // Find post and add new comment to comments array.
@@ -48,25 +50,38 @@ const handleCommentUpdated = ({
     posts[postId].comments[commentIndex] = { id, content, status };
 };
 
-app.post("/events", (req: EventReq, res) => {
-    const { type, data } = req.body;
-
+const handleEvents = (type: string, data: unknown) => {
     switch (type) {
         case "postCreated":
-            handlePostCreated(data);
+            handlePostCreated(data as NewPostEvent);
             break;
 
         case "commentCreated":
-            handleCommentCreated(data);
+            handleCommentCreated(data as NewCommentEvent);
             break;
         case "commentUpdated":
-            handleCommentUpdated(data);
+            handleCommentUpdated(data as CommentWithPostId);
             break;
     }
+};
+
+app.post("/events", (req: EventReq, res) => {
+    const { type, data } = req.body;
+    handleEvents(type, data);
 
     res.sendStatus(200);
 });
 
-app.listen(4002, () => {
+app.listen(4002, async () => {
     console.log("query service is running on PORT: 4002");
+
+    // On start up get al old events.
+    const events = await fetch("http://localhost:4005/events", {
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "get",
+    }).then((res) => res.json() as Promise<Event[]>);
+
+    events.forEach(({ type, data }) => handleEvents(type, data));
 });
