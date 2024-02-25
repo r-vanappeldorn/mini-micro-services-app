@@ -43,7 +43,7 @@ app.post("/posts/:postId/comments", (req, res) => {
     commentsByPosts[postId] = comments;
 
     // Emit commentCreated event to event bus.
-    fetch("http://localhost:4005/events", {
+    fetch("http://event-bus-srv:4005/events", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -69,7 +69,7 @@ const reviewComment = (data: CommentWithPostId) => {
 
     // Set a time out of 10 seconds to fake latency and send commentUpdated event.
     setTimeout(() => {
-        fetch("http://localhost:4005/events", {
+        fetch("http://event-bus-srv:4005/events", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
