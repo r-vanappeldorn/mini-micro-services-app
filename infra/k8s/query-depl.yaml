@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-depl
+spec:
+  # specify amount of pods
+  replicas: 1
+  selector:
+    # find al the pods with app query
+    matchLabels:
+      app: query
+  template:
+    metadata:
+      # Add label app: query
+      labels:
+        app: query
+    spec:
+      containers:
+        - name: query
+          image: rvanappeldorn/query-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-srv
+spec:
+  selector:
+    app: query
+  ports:
+    - name: query
+      protocol: TCP
+      port: 4002
+      targetPort: 4002
