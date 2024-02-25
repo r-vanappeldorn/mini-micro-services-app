@@ -15,23 +15,25 @@ app.post("/events", (req: EventReq, res) => {
     const event = req.body;
 
     // Post service.
-    fetch("http://localhost:4000/events", {
+    fetch("http://posts-srv:4000/events", {
         headers: { "Content-Type": "application/json" },
         method: "post",
         body: JSON.stringify(event),
     }).catch(() => console.error("failed to emit event too posts service"));
     // Comments service.
-    fetch("http://localhost:4001/events", {
+    fetch("http://comments-srv:4001/events", {
         headers: { "Content-Type": "application/json" },
         method: "post",
         body: JSON.stringify(event),
     }).catch(() => console.error("failed to emit event too comments service"));
     // Query service.
-    fetch("http://localhost:4002/events", {
+    fetch("http://query-srv:4002/events", {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(event),
     }).catch(() => console.error("failed to emit event too query service"));
+
+    console.log(event);
 
     events.push(event);
 

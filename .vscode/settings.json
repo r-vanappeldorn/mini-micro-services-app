@@ -1,5 +1,4 @@
 {
-    "css.lint.unknownAtRules": "ignore",
-    "prettier.tabWidth": 4,
-    "cSpell.words": ["Autosize"]
+  "css.lint.unknownAtRules": "ignore",
+  "cSpell.words": ["Autosize"]
 }

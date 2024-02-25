@@ -27,10 +27,9 @@ app.post("/posts", (req: CreatePostReq, res) => {
 
     // Create new entry in posts object.
     posts[id] = newPost;
-    res.status(201).send(newPost);
 
     // Emit postCreated event to event bus.
-    fetch("http://localhost:4005/events", {
+    fetch("http://event-bus-srv:4005/events", {
         headers: { "Content-Type": "application/json" },
         method: "post",
         body: JSON.stringify({
@@ -38,6 +37,8 @@ app.post("/posts", (req: CreatePostReq, res) => {
             data: newPost,
         }),
     });
+
+    res.status(201).send(newPost);
 
     console.log("post created");
 });

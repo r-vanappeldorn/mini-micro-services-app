@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comments-depl
+spec:
+  # specify amount of pods
+  replicas: 1
+  selector:
+    # find al the pods with app comments
+    matchLabels:
+      app: comments
+  template:
+    metadata:
+      # Add label app: comments
+      labels:
+        app: comments
+    spec:
+      containers:
+        - name: comments
+          image: rvanappeldorn/comments-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-srv
+spec:
+  selector:
+    app: comments
+  ports:
+    - name: comments
+      protocol: TCP
+      port: 4001
+      targetPort: 4001
