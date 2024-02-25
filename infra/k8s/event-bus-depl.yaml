@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-bus-depl
+spec:
+  # specify amount of pods
+  replicas: 1
+  selector:
+    # find al the pods with app event-bus
+    matchLabels:
+      app: event-bus
+  template:
+    metadata:
+      # Add label app: event-bus
+      labels:
+        app: event-bus
+    spec:
+      containers:
+        - name: event-bus
+          image: rvanappeldorn/event-bus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-srv
+spec:
+  selector:
+    app: event-bus
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 4005
+      targetPort: 4005
