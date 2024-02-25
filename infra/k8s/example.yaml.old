@@ -1,0 +1,18 @@
+# Tel k8s what pool of objects we want to draw from
+# v1 = look at the default list of objects that we can create
+apiVersion: v1
+
+# type of object
+kind: Pod
+
+# Config options for the object we are about to create
+metadata:
+  name: posts
+
+# The exact attributes we want to apply to object we are about to create
+spec:
+  containers:
+    - name: posts
+      # :latest = from docker hub
+      # exact version number is local
+      image: rvanappeldorn/post-service:0.0.1
