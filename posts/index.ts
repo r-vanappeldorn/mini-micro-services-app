@@ -11,11 +11,7 @@ app.use(cors());
 
 const posts: Posts = {};
 
-app.get("/posts", (req, res) => {
-    res.send(Object.values(posts));
-});
-
-app.post("/posts", (req: CreatePostReq, res) => {
+app.post("/posts/create", (req: CreatePostReq, res) => {
     // Create fake id. Would not use this method in a real project.
     const id = randomBytes(4).toString("hex");
     const { title } = req.body;

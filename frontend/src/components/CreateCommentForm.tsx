@@ -19,7 +19,7 @@ export function CreateCommentForm({
     const createComment = async (e: FormEvent) => {
         e.preventDefault();
         axios
-            .post<Comments>(`http://localhost:4001/posts/${postId}/comments`, {
+            .post<Comments>(`http://mini-app.io/posts/${postId}/comments`, {
                 id: postId,
                 content: comment,
             })

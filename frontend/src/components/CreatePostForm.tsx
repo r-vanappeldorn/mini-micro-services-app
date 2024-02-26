@@ -18,7 +18,7 @@ export default function CreatePostForm() {
             .post<{
                 title: string;
                 id: string;
-            }>("http://localhost:4000/posts", {
+            }>("http://mini-app.io/posts/create", {
                 title,
             })
             .then(({ data: newPost }) => {

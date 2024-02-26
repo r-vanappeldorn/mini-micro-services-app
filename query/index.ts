@@ -16,7 +16,7 @@ app.use(cors());
 
 const posts: Posts = {};
 
-app.get("/posts", (req, res) => {
+app.get("/posts", (_, res) => {
     res.send(Object.values(posts));
 });
 
@@ -76,7 +76,7 @@ app.listen(4002, async () => {
     console.log("query service is running on PORT: 4002");
 
     // On start up get al old events.
-    const events = await fetch("http://events-bus-srv:4005/events", {
+    const events = await fetch("http://event-bus-srv:4005/events", {
         headers: {
             "Content-Type": "application/json",
         },

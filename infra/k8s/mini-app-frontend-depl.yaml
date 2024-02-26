@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mini-app-frontend-depl
+spec:
+  # specify amount of pods
+  replicas: 1
+  selector:
+    # find al the pods with app mini-app-frontend
+    matchLabels:
+      app: mini-app-frontend
+  template:
+    metadata:
+      # Add label app: mini-app-frontend
+      labels:
+        app: mini-app-frontend
+    spec:
+      containers:
+        - name: mini-app-frontend
+          image: rvanappeldorn/mini-app-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mini-app-frontend-srv
+spec:
+  selector:
+    app: mini-app-frontend
+  ports:
+    - name: mini-app-frontend
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
