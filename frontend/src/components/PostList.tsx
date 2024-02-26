@@ -22,7 +22,7 @@ export default function PostList() {
 
     useEffect(() => {
         axios
-            .get<Posts>("http://localhost:4002/posts")
+            .get<Posts>("http://mini-app.io/posts")
             .then(({ data }) => {
                 setPosts(data);
                 setIsLoading(false);
