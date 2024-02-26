@@ -13,4 +13,6 @@ Install docker, kubernetes and skaffold on your device. Then edit your `/etc/hos
 1. Adding a post.
 2. Adding a comment to a post.
 3. Moderation on comments.
-
+4. Async communication between services.
+5. Skaffold automation.
+6. Deployments for a kubernetes cluster.
