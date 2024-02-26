@@ -16,7 +16,7 @@ app.use(cors());
 
 const posts: Posts = {};
 
-app.get("/posts", (req, res) => {
+app.get("/posts", (_, res) => {
     res.send(Object.values(posts));
 });
 
